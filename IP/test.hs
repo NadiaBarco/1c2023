@@ -25,7 +25,7 @@ sumarSoloMultiplos (a,b,c) d = if ( mod a d == 0) then a else 0 + if ( mod b d =
 
 
 --posPrimerPar ::(Int,Int,Int)->Int
---posPrimerPar (x1,x2,x3) = 
+
 
 
 --5)
@@ -173,3 +173,15 @@ sumaRacionales:: Integer->Integer ->Float
 sumaRacionales n m = fromIntegral (sumaGauss n) *serieArmonica m
 
 --16)
+menorDivisorAux:: Integer -> Integer ->Integer
+menorDivisorAux  n k | n `mod` k == 0 = k
+                     | otherwise      = menorDivisorAux n (k+1) 
+
+menorDivisor :: Integer->Integer
+menorDivisor n = menorDivisorAux n 2
+
+esPrimo:: Integer -> Bool
+esPrimo n =  if (menorDivisor n == n) then True else False
+
+--sonCoprimos:: Integer ->Integer ->Bool
+
