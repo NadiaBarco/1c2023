@@ -185,3 +185,88 @@ esPrimo n =  if (menorDivisor n == n) then True else False
 
 --sonCoprimos:: Integer ->Integer ->Bool
 
+
+---PRACTICA 5
+
+--1
+longitud :: [Int]-> Int
+longitud l | l == [] = 0
+           | otherwise = 1 + longitud(tail l )
+         
+
+ultimo::[Int] -> Int
+ultimo [x] = x
+ultimo (_:xs) = ultimo xs
+     
+
+principio :: [Int] -> [Int]
+principio [x] = [x]
+principio (x:xs) = [x] ++ principio [head xs]
+
+reverso :: [t] ->[t]
+reverso [x] = [x]
+reverso (x:xs) =  reverso xs ++ [x]
+
+
+--2)
+pertenece :: (Eq t) => t -> [t] -> Bool
+pertenece n [] = False 
+pertenece n (x:xs) = (n== x) || pertenece n xs
+
+todosIguales :: (Eq t) => [t] -> Bool
+todosIguales [x] = True
+todosIguales (x : xs) = head xs == x && todosIguales xs
+
+todosDistintos :: (Eq t) => [t] -> Bool
+todosDistintos [x] = True
+todosDistintos (x:xs) = head xs /= x && todosDistintos xs
+
+hayRepetidos :: (Eq t) => [t] -> Bool
+hayRepetidos [x] = False
+hayRepetidos (x :xs) = pertenece x xs || hayRepetidos xs
+
+quitar :: (Eq t) => t -> [t] -> [t]
+quitar n [] = []
+quitar n (x:xs) | x== n = xs
+                | x /= n = x : quitar n xs
+
+quitarTodos :: (Eq t ) => t -> [t] -> [t]
+quitarTodos n [] = []
+quitarTodos n (x:xs) | x == n = quitarTodos n xs
+                      |otherwise= x: quitarTodos n xs  
+
+eliminarRepetidos :: (Eq t) => [t] -> [t]
+eliminarRepetidos [] = [] 
+eliminarRepetidos (x:xs) = x : eliminarRepetidos (quitarTodos x xs)
+
+mismosElementos :: (Eq t) => [t] -> [t] -> Bool
+mismosElementos [] [] = True
+mismosElementos  (x:xs) (y:ys) = pertenece x ys && pertenece y xs 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sumatoria ::[Int] -> Int
+sumatoria l | l == [] =0
+            | otherwise = head l + sumatoria (tail l) 
