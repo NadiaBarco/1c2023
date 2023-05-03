@@ -63,7 +63,7 @@ comparar n m | sumaUltimosDosDigitos n < sumaUltimosDosDigitos m = 1
 
 --PRACTICA 4 RECURSION DE ENTEROS ---
 fibonacci:: Integer->Integer
-fibonacci 0=0
+fibonacci 0 = 0
 fibonacci 1 = 1
 fibonacci n = fibonacci(n-1) + fibonacci(n-2)
 
@@ -183,6 +183,14 @@ menorDivisor n = menorDivisorAux n 2
 esPrimo:: Integer -> Bool
 esPrimo n =  if (menorDivisor n == n) then True else False
 
+nEsimoPrimo:: Integer-> Integer
+nEsimoPrimo n | n==2 = 2
+
+esFibonacci:: Int ->Bool
+esFibonacci 1 = True
+
+
+
 --sonCoprimos:: Integer ->Integer ->Bool
 
 
@@ -194,10 +202,10 @@ longitud l | l == [] = 0
            | otherwise = 1 + longitud(tail l )
          
 
-ultimo::[Int] -> Int
+ultimo::[Integer] -> Integer
 ultimo [x] = x
 ultimo (_:xs) = ultimo xs
-     
+
 
 principio :: [Int] -> [Int]
 principio [x] = [x]
@@ -244,29 +252,113 @@ mismosElementos [] [] = True
 mismosElementos  (x:xs) (y:ys) = pertenece x ys && pertenece y xs 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--capicua :: (Eq t) => [t] -> Bool
 sumatoria ::[Int] -> Int
 sumatoria l | l == [] =0
             | otherwise = head l + sumatoria (tail l) 
+
+
+sumatorialist :: [Integer] -> Integer
+sumatorialist [] = 0 
+sumatorialist (x:xs) = x +  sumatorialist xs
+
+productorialist :: [Integer] -> Integer
+productorialist [] = 1
+productorialist (x:xs) = x*productorialist xs
+
+maximo :: [Integer] -> Integer
+maximo [x] = x
+maximo (x:xs) | x > maximo xs = x
+              | otherwise = maximo xs
+
+sumarN :: Integer -> [Integer] -> [Integer]
+--sumarN n [] = [n]
+sumarN n [] = []
+sumarN n (x:xs) = (x+n) : sumarN n xs
+            
+sumarElPrimero :: [Integer] -> [Integer]
+sumarElPrimero (x:xs) =  x+x:sumarN x xs 
+
+sumarElUltimo :: [Integer] -> [Integer]
+--sumarElUltimo (x:xs) = sumarN (last xs) (x:xs) 
+sumarElUltimo [] =[]
+sumarElUltimo (x:xs) = (x + ultimo xs) : sumarN (ultimo xs) xs
+
+pares :: [Integer] -> [Integer]
+pares [x] =[x]
+pares (x:xs) |mod x 2 == 0            = x: pares xs
+             | mod 2 (head  xs)  == 0 = head xs :pares xs
+             | otherwise             = pares xs
+
+multiplosDeN :: Integer -> [Integer] -> [Integer]
+multiplosDeN n [x] =[]
+multiplosDeN n (x:xs) | mod n x == 0 = x : multiplosDeN n xs
+                      | mod (head xs) n == 0 = head xs : multiplosDeN n xs
+                      |otherwise = multiplosDeN n  xs
+
+{--ordenar :: [Integer] -> [Integer]
+ordenar [x] = [x]
+ordenar (x:xs) | x > head xs = ordenar xs
+               | x < head xs = x : tail xs
+               |otherwise= ordenar xs
+--}
+--SBR sin resolver--
+
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos [' '] = [' ']
+sacarBlancosRepetidos (x:xs) | x == ' ' && head xs == x = x : sacarBlancosRepetidos xs
+                             | x /= ' '                 = x: sacarBlancosRepetidos xs
+                             |otherwise = sacarBlancosRepetidos xs
+
+-------------------
+sacarBlancosRepetidos2 :: [Char] -> [Char]
+sacarBlancosRepetidos2 []=[]
+sacarBlancosRepetidos2 [' ']=[' ']
+sacarBlancosRepetidos2 (x:xs) | x == ' ' && head xs==' ' = sacarBlancosRepetidos2 (x:quitar (head xs) xs)
+                             | otherwise =  x:sacarBlancosRepetidos2 xs
+
+
+
+contarPalabras :: [Char] -> Integer
+contarPalabras [] = 0 
+contarPalabras [x] =1
+contarPalabras (x:xs) | x == ' ' = 1 + contarPalabras xs
+                      | otherwise = contarPalabras xs 
+
+------------------
+contarLetras :: [Char] ->Integer
+contarLetras [] = 0
+contarLetras(x:xs)| x /= ' ' = 1 + contarLetras xs 
+                  | otherwise = contarLetras xs
+
+palabraMasLarga :: [Char] -> [Char]
+palabraMasLarga [] = []
+palabraMasLarga [x] = [x]
+palabraMasLarga (x:xs) | contarLetras x  contarLetras (head xs) = x :palabraMasLarga xs
+                      | otherwise = palabraMasLarga xs
+
+
+{--
+nat2bin::Integer -> [Integer]
+nat2bin 0 = [0]
+nat2bin n = mod(div n 2) 2 :nat2bin (mod n 2)
+
+--}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
