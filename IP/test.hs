@@ -183,15 +183,40 @@ menorDivisor n = menorDivisorAux n 2
 esPrimo:: Integer -> Bool
 esPrimo n =  if (menorDivisor n == n) then True else False
 
-nEsimoPrimo:: Integer-> Integer
-nEsimoPrimo n | n==2 = 2
+--nEsimoPrimo:: Integer-> Integer
+--nEsimoPrimo n  n==2 = 2
 
-esFibonacci:: Int ->Bool
+obtenerPrimo:: Integer -> Integer -> Integer -> Integer
+obtenerPrimo p c l | esPrimo p && c == l = p
+                   | esPrimo p && c /= l = obtenerPrimo (p+1) (c+1) l
+                   | otherwise = obtenerPrimo (p+1) c l
+
+
+nEsimoPrimo:: Integer -> Integer 
+nEsimoPrimo n = obtenerPrimo 2 1 n
+
+--17)
+perteneceFibonacci :: Integer-> Integer -> Bool
+perteneceFibonacci n c | fibonacci (c) == n = True
+                       | fibonacci c < n = perteneceFibonacci n (c+1)
+                       | otherwise = False 
+
+esFibonacci:: Integer ->Bool
+esFibonacci 0 = True
 esFibonacci 1 = True
+esFibonacci n = perteneceFibonacci n 1
+
+esSumaInicialDePrimos :: Int ->Bool
+esSumaInicialDePrimos 1 = False
+
+--sumaDePrimos:: Int -> Int
 
 
 
---sonCoprimos:: Integer ->Integer ->Bool
+
+
+
+
 
 
 ---PRACTICA 5
@@ -200,7 +225,7 @@ esFibonacci 1 = True
 longitud :: [Int]-> Int
 longitud l | l == [] = 0
            | otherwise = 1 + longitud(tail l )
-         
+
 
 ultimo::[Integer] -> Integer
 ultimo [x] = x
@@ -331,19 +356,20 @@ contarLetras [] = 0
 contarLetras(x:xs)| x /= ' ' = 1 + contarLetras xs 
                   | otherwise = contarLetras xs
 
+
+{--
 palabraMasLarga :: [Char] -> [Char]
 palabraMasLarga [] = []
 palabraMasLarga [x] = [x]
-palabraMasLarga (x:xs) | contarLetras x  contarLetras (head xs) = x :palabraMasLarga xs
-                      | otherwise = palabraMasLarga xs
+palabraMasLarga (x:y:xs) | contarLetras [x] > contarLetras [y] = [x] 
+                         | otherwise = palabraMasLarga xs
+--} 
+
+palabras :: [Char] -> [[Char]]
+palabras [] = []
+palabras [x] = [[x]] 
 
 
-{--
-nat2bin::Integer -> [Integer]
-nat2bin 0 = [0]
-nat2bin n = mod(div n 2) 2 :nat2bin (mod n 2)
-
---}
 
 
 
