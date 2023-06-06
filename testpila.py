@@ -47,7 +47,7 @@ def generar_un_archivo_recursivo(file):
  file= open("archivo.txt","r")
  reverted_file= open("archivo.txt","r")
  lines= file.readlines()
- for i in range(len(lines),-1,1):
+ for i in range(len(lines),-1,-1):
   reverted_file.write(lines[i])
   file.close()
   reverted_file.close()
